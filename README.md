@@ -152,7 +152,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Support
 
-For support, email support@tournamenthub.com or create an issue in the repository. 
+For support, email prajapatijay17112007@gmail.com
 =======
 # tournament-web
 >>>>>>> fec59f45911d1180fee882b746cbd6b2b0cb3467
