@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # eSports Tournament Platform
 
 A full-featured eSports tournament platform built with Python Flask, SQLite, and Bootstrap 5.
