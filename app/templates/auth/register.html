@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Tournament Platform{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Register</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('auth.register') }}">
+                        {{ form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ form.full_name.label(class="form-label") }}
+                            {{ form.full_name(class="form-control", placeholder="Enter your full name") }}
+                            {% if form.full_name.errors %}
+                                {% for error in form.full_name.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.mobile_number.label(class="form-label") }}
+                            {{ form.mobile_number(class="form-control", placeholder="Enter your mobile number") }}
+                            {% if form.mobile_number.errors %}
+                                {% for error in form.mobile_number.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.free_fire_id.label(class="form-label") }}
+                            {{ form.free_fire_id(class="form-control", placeholder="Enter your Free Fire ID") }}
+                            {% if form.free_fire_id.errors %}
+                                {% for error in form.free_fire_id.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password.label(class="form-label") }}
+                            {{ form.password(class="form-control", placeholder="Enter your password") }}
+                            {% if form.password.errors %}
+                                {% for error in form.password.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.confirm_password.label(class="form-label") }}
+                            {{ form.confirm_password(class="form-control", placeholder="Confirm your password") }}
+                            {% if form.confirm_password.errors %}
+                                {% for error in form.confirm_password.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.referral_code.label(class="form-label") }}
+                            {{ form.referral_code(class="form-control", placeholder="Enter referral code (optional)") }}
+                            {% if form.referral_code.errors %}
+                                {% for error in form.referral_code.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3 form-check">
+                            {{ form.terms_conditions(class="form-check-input") }}
+                            {{ form.terms_conditions.label(class="form-check-label") }}
+                            {% if form.terms_conditions.errors %}
+                                {% for error in form.terms_conditions.errors %}
+                                    <div class="text-danger">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <div class="d-grid">
+                            {{ form.submit(class="btn btn-primary") }}
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

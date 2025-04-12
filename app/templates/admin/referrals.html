@@ -1,0 +1,200 @@
+{% extends "admin/layout.html" %}
+
+{% block title %}Referrals - Star Esport Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1 class="h3 mb-4 text-gray-800">Referral System</h1>
+
+    <!-- Statistics Cards -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Total Referrals</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.total_referrals }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Active Referrers</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ stats.active_referrers }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Total Bonus Paid</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">₹{{ "%.2f"|format(stats.total_bonus_paid) }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-rupee-sign fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Pending Bonus</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">₹{{ "%.2f"|format(stats.pending_bonus) }}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Referral List -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Referral Details</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Referrer</th>
+                            <th>Referred User</th>
+                            <th>Referral Code</th>
+                            <th>Status</th>
+                            <th>Bonus Amount</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for referral in referrals %}
+                        <tr>
+                            <td>
+                                {{ referral.referrer.full_name }}<br>
+                                <small class="text-muted">{{ referral.referrer.mobile_number }}</small>
+                            </td>
+                            <td>
+                                {{ referral.referred.full_name }}<br>
+                                <small class="text-muted">{{ referral.referred.mobile_number }}</small>
+                            </td>
+                            <td>{{ referral.referral_code }}</td>
+                            <td>
+                                <span class="badge badge-{{ 
+                                    'success' if referral.status == 'completed'
+                                    else 'warning' if referral.status == 'pending'
+                                    else 'danger'
+                                }}">
+                                    {{ referral.status|title }}
+                                </span>
+                            </td>
+                            <td>₹{{ "%.2f"|format(referral.bonus_amount) }}</td>
+                            <td>{{ referral.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>
+                                {% if referral.status == 'pending' %}
+                                <div class="btn-group">
+                                    <button type="button" 
+                                            class="btn btn-sm btn-success"
+                                            data-toggle="modal" 
+                                            data-target="#approveModal{{ referral.id }}">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button type="button" 
+                                            class="btn btn-sm btn-danger"
+                                            data-toggle="modal" 
+                                            data-target="#rejectModal{{ referral.id }}">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Approve Modal -->
+                                <div class="modal fade" id="approveModal{{ referral.id }}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Approve Referral</h5>
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    <span>&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to approve this referral?
+                                                Bonus Amount: ₹{{ "%.2f"|format(referral.bonus_amount) }}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <form action="{{ url_for('admin.approve_referral', referral_id=referral.id) }}" 
+                                                      method="POST" style="display: inline;">
+                                                    <button type="submit" class="btn btn-success">Approve</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Reject Modal -->
+                                <div class="modal fade" id="rejectModal{{ referral.id }}" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Reject Referral</h5>
+                                                <button type="button" class="close" data-dismiss="modal">
+                                                    <span>&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="{{ url_for('admin.reject_referral', referral_id=referral.id) }}" 
+                                                      method="POST">
+                                                    <div class="form-group">
+                                                        <label for="reason">Reason for rejection:</label>
+                                                        <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                        <button type="submit" class="btn btn-danger">Reject</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

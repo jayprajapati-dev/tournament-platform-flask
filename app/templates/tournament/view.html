@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tournament.title }} - TournamentHub{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="mb-4">{{ tournament.title }}</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Tournament Details</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Game:</strong> {{ tournament.game }}</p>
+                            <p><strong>Entry Fee:</strong> ₹{{ tournament.entry_fee }}</p>
+                            <p><strong>Prize Pool:</strong> ₹{{ tournament.prize_pool }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Start Date:</strong> {{ tournament.start_date.strftime('%d %b %Y, %I:%M %p') }}</p>
+                            <p><strong>End Date:</strong> {{ tournament.end_date.strftime('%d %b %Y, %I:%M %p') }}</p>
+                            <p><strong>Participants:</strong> {{ tournament.get_participant_count() }}/{{ tournament.max_participants }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Description</h5>
+                    <p class="card-text">{{ tournament.description }}</p>
+                </div>
+            </div>
+            
+            {% if current_user.is_authenticated %}
+                {% if is_participating %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Your Participation</h5>
+                            <p>You are registered for this tournament.</p>
+                            <a href="{{ url_for('tournament.submit_result', tournament_id=tournament.id) }}" 
+                               class="btn btn-primary">Submit Match Result</a>
+                        </div>
+                    </div>
+                {% elif tournament.is_registration_open() %}
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Join Tournament</h5>
+                            <p>Entry Fee: ₹{{ tournament.entry_fee }}</p>
+                            <form method="POST" action="{{ url_for('tournament.join_tournament', tournament_id=tournament.id) }}">
+                                <button type="submit" class="btn btn-primary">Join Now</button>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="alert alert-warning">
+                        Registration for this tournament is closed.
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-info">
+                    Please <a href="{{ url_for('auth.login') }}">login</a> to join this tournament.
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tournament Status</h5>
+                    <p class="card-text">
+                        Status: <span class="badge bg-{{ 'success' if tournament.status == 'upcoming' else 'warning' if tournament.status == 'ongoing' else 'secondary' }}">
+                            {{ tournament.status|title }}
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        Registration: <span class="badge bg-{{ 'success' if tournament.is_registration_open() else 'danger' }}">
+                            {{ 'Open' if tournament.is_registration_open() else 'Closed' }}
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        Slots Available: {{ tournament.max_participants - tournament.get_participant_count() }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
