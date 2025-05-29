@@ -41,9 +41,9 @@ It includes user authentication, tournament hosting and participation, wallet sy
   - View referral statistics
 
 ## 🧰 Tech Stack
-| Backend | Frontend    | Database | Features                                 |
-| ------- | ----------- | -------- | ---------------------------------------- |
-| Flask   | Bootstrap 5 | SQLite   | Flask-Login, Flask-WTF, Jinja2 Templates |
+- | Backend | Frontend    | Database | Features                                 |
+- | ------- | ----------- | -------- | ---------------------------------------- |
+- | Flask   | Bootstrap 5 | SQLite   | Flask-Login, Flask-WTF, Jinja2 Templates |
 
 ## Prerequisites
 
@@ -145,9 +145,9 @@ tournament-web/
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+- This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Contact
 
 - Developer: Jay Prajapati
-Email: prajapatijay17112007@gmail.com
+- Email: prajapatijay17112007@gmail.com
