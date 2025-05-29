@@ -41,9 +41,9 @@ It includes user authentication, tournament hosting and participation, wallet sy
   - View referral statistics
 
 ## 🧰 Tech Stack
-- | Backend | Frontend    | Database | Features                                 |
-- | ------- | ----------- | -------- | ---------------------------------------- |
-- | Flask   | Bootstrap 5 | SQLite   | Flask-Login, Flask-WTF, Jinja2 Templates |
+| Backend | Frontend    | Database | Features                                 |
+| ------- | ----------- | -------- | ---------------------------------------- |
+| Flask   | Bootstrap 5 | SQLite   | Flask-Login, Flask-WTF, Jinja2 Templates |
 
 ## Prerequisites
 
