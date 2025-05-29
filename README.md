@@ -1,6 +1,24 @@
-# eSports Tournament Platform
+# 🎮 eSports Tournament Platform
 
-A full-featured eSports tournament platform built with Python Flask, SQLite, and Bootstrap 5.
+A full-stack, feature-rich eSports tournament management platform built with **Flask, SQLite, and Bootstrap 5**.  
+It includes user authentication, tournament hosting and participation, wallet system, admin control panel, referral rewards, and more.
+
+<p align="center">
+  <a href="#"><img alt="License" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
+  <a href="#"><img alt="Python" src="https://img.shields.io/badge/python-3.8%2B-brightgreen"></a>
+  <a href="#"><img alt="Flask" src="https://img.shields.io/badge/built%20with-Flask-000000.svg?logo=flask"></a>
+  <a href="#"><img alt="Status" src="https://img.shields.io/badge/status-Production-green"></a>
+</p>
+
+---
+
+## 📸 Preview
+
+> Add your app screenshot or a short demo GIF here
+
+```markdown
+![Demo](assets/demo.png)
+
 
 ## Features
 
@@ -22,56 +40,50 @@ A full-featured eSports tournament platform built with Python Flask, SQLite, and
   - Process withdrawals
   - View referral statistics
 
+## 🧰 Tech Stack
+| Backend | Frontend    | Database | Features                                 |
+| ------- | ----------- | -------- | ---------------------------------------- |
+| Flask   | Bootstrap 5 | SQLite   | Flask-Login, Flask-WTF, Jinja2 Templates |
+
 ## Prerequisites
 
 - Python 3.8 or higher
 - pip (Python package manager)
 
 ## Installation
+# 1. Clone the repository
+git clone https://github.com/jayprajapati-dev/tournament-platform-flask.git
+cd tournament-platform-flask
 
-1. Clone the repository:
-```bash
-git clone https://github.com/jayprajapati-dev/tournament-web.git
-cd tournament-web
-```
-
-2. Create a virtual environment:
-```bash
+# 2. Create and activate virtual environment
 python -m venv venv
-```
 
-3. Activate the virtual environment:
-- Windows:
-```bash
+# Windows
 venv\Scripts\activate
-```
-- Linux/Mac:
-```bash
+
+# macOS/Linux
 source venv/bin/activate
-```
 
-4. Install dependencies:
-```bash
+# 3. Install dependencies
 pip install -r requirements.txt
-```
 
-5. Initialize the database:
-```bash
+# 4. Initialize the database
 flask db upgrade
-```
 
-6. Create an admin user:
-```bash
+# 5. Create admin user
 flask create-admin
-```
 
-## Configuration
+# 6. Start the development server
+flask run
 
-1. Create a `.env` file in the root directory with the following variables:
-```
-FLASK_APP=app.py
+Your app will be running at: http://localhost:5000
+
+## Environment Configuration
+
+1. Create a .env file in the root:
+```FLASK_APP=app.py
 FLASK_ENV=development
-SECRET_KEY=your-secret-key-here
+SECRET_KEY=your-secret-key
 ```
 
 2. For production, set the following environment variables:
@@ -80,21 +92,6 @@ FLASK_ENV=production
 DATABASE_URL=your-database-url
 SECRET_KEY=your-secure-secret-key
 ```
-
-## Running the Application
-
-1. Development mode:
-```bash
-flask run
-```
-
-2. Production mode:
-```bash
-gunicorn app:app
-```
-
-The application will be available at `http://localhost:5000`
-
 ## Project Structure
 
 ```
@@ -150,9 +147,7 @@ tournament-web/
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+## Contact
 
-For support, email prajapatijay17112007@gmail.com
-=======
-# tournament-web
->>>>>>> fec59f45911d1180fee882b746cbd6b2b0cb3467
+- Developer: Jay Prajapati
+Email: prajapatijay17112007@gmail.com
